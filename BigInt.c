@@ -1,22 +1,29 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <limits.h>
+// check add overflow
 int isAddOverflow(unsigned int x, unsigned int y)
 {
-    // 1.
     unsigned int sum = x + y;
     return sum < y||sum < x;
 }
+
+// define 
+// use builtin first (gcc)
 #define is_overflow(a, b) \
    __builtin_add_overflow_p (a, b, (__typeof__ ((a) + (b))) 0)
 
+// notused
 #define value(a) \
     i < a -> size ? a -> value : 0
-    
+
+// struct of big int    
 typedef struct _BIG_INT{
     unsigned int value; //size if first
     struct _BIG_INT * next;
 } BIG_INT;
+
+// a+b
 BIG_INT add(BIG_INT a,BIG_INT b){
     unsigned int sizea = (int)a.value < 0 ? -a.value : a.value ;
     unsigned int sizeb = (int)b.value < 0 ? -b.value : b.value ;
@@ -61,8 +68,8 @@ BIG_INT add(BIG_INT a,BIG_INT b){
     return ret;
 }
 
+// sub0(a) = -b
 BIG_INT sub0(BIG_INT a){
-    //BIG_INT * now = &a ;
     BIG_INT * ret = malloc(sizeof(BIG_INT));
     *ret = a;
     ret -> value = -a.value;
@@ -78,10 +85,15 @@ BIG_INT sub0(BIG_INT a){
     return * ret;
 }
 
+// a-b
 BIG_INT sub(BIG_INT a, BIG_INT b){
     return add(a, sub0(b));
 }
-//BIG_INT 
+
+BIG_INT from_hex(char * hex, int len){
+	
+}
+
 int main(){
     BIG_INT a;
     BIG_INT b;
