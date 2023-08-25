@@ -14,8 +14,8 @@ BIG_INT add(BIG_INT a,BIG_INT b){
     BIG_INT ret ;
     ret.value = 0 ;
     BIG_INT * now =&ret;
-    BIG_INT * _a = &a ;
-    BIG_INT * _b = &b ;
+    BIG_INT * _a = a.next ;
+    BIG_INT * _b = b.next ;
     int over = 0 ;
     for(int i = 0; i < longer; i++){
         if(over){
