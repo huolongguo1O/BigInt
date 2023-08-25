@@ -75,6 +75,7 @@ BIG_INT sub0(BIG_INT a){
         *tmp = *(org -> next) ;
         tmp -> value = (tmp -> value) ^ (unsigned int)-2;
     }
+    return * ret;
 }
 
 BIG_INT sub(BIG_INT a, BIG_INT b){
