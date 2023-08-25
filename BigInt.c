@@ -50,12 +50,19 @@ BIG_INT add(BIG_INT a,BIG_INT b){
     }
     return ret;
 }
-BIG_INT sub0(BIG_INT a){
+
+void sub0(BIG_INT a){
     BIG_INT * now = &a ;
-    now = now -> next ;
-    now -> value = (unsigned int)-(now -> value);
+    BIG_INT ret = a;
+    BIG_INT * tmp = malloc(sizeof(BIG_INT));
+    *tmp = *ret.next ;
+    tmp -> value = (unsigned int)-(tmp -> value);
     for(int i = 0; i < abs(a.value)-1; i++){
         now = now -> next;
         now -> value = (now -> value) ^ 0xFFFFFFFE;
     }
+}
+
+BIG_INT sub(BIG_INT a, BIG_INT b){
+
 }
