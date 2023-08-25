@@ -107,7 +107,9 @@ BIG_INT from_hex(char * hex, int len){
         BIG_INT * btmp = malloc(sizeof(BIG_INT));
         char * rubbish;
         btmp -> value = strtol(tmp, &rubbish, 16);
-        if(*rubbish  )
+        if(*rubbish != '0')
+            continue;
+        
     }
 }
 
