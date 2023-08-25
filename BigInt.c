@@ -90,8 +90,25 @@ BIG_INT sub(BIG_INT a, BIG_INT b){
     return add(a, sub0(b));
 }
 
+// convert from hex, len exclude \0
 BIG_INT from_hex(char * hex, int len){
-	
+	BIG_INT ret ;
+    char tmp[9] = {0} ;
+    BIG_INT *now = &ret ;
+    for(int i = 0; i + 8 < len; i+=8){
+        tmp[0] = hex[i + 0];
+        tmp[1] = hex[i + 1];
+        tmp[2] = hex[i + 2];
+        tmp[3] = hex[i + 3];
+        tmp[4] = hex[i + 4];
+        tmp[5] = hex[i + 5];
+        tmp[6] = hex[i + 6];
+        tmp[7] = hex[i + 7];
+        BIG_INT * btmp = malloc(sizeof(BIG_INT));
+        char * rubbish;
+        btmp -> value = strtol(tmp, &rubbish, 16);
+        if(*rubbish  )
+    }
 }
 
 int main(){
