@@ -51,18 +51,40 @@ BIG_INT add(BIG_INT a,BIG_INT b){
     return ret;
 }
 
-void sub0(BIG_INT a){
-    BIG_INT * now = &a ;
-    BIG_INT ret = a;
+BIG_INT sub0(BIG_INT a){
+    //BIG_INT * now = &a ;
+    BIG_INT * ret = malloc(sizeof(BIG_INT));
+    *ret = a;
     BIG_INT * tmp = malloc(sizeof(BIG_INT));
-    *tmp = *ret.next ;
-    tmp -> value = (unsigned int)-(tmp -> value);
+    *tmp = *(ret->next) ;
+    tmp -> value = (unsigned int)-(tmp -> value) ;
     for(int i = 0; i < abs(a.value)-1; i++){
-        now = now -> next;
-        now -> value = (now -> value) ^ 0xFFFFFFFE;
+        BIG_INT * org = tmp ;
+        tmp = malloc(sizeof(BIG_INT));
+        *tmp = *(org -> next) ;
+        tmp -> value = (tmp -> value) ^ (unsigned int)-2;
     }
 }
 
 BIG_INT sub(BIG_INT a, BIG_INT b){
-
+    return add(a, sub0(b));
+}
+//BIG_INT 
+int main(){
+    BIG_INT a;
+    BIG_INT b;
+    BIG_INT a1;
+    BIG_INT b1;
+    a.next = &a1;
+    b.next = &b1;
+    a.value = 1;
+    b.value = 1;
+    a1.value = -1;
+    b1.value = 114514;
+    a1.next = (BIG_INT *)-1;
+    b1.next = (BIG_INT *)-1;
+    add(a,b);
+    sub(a,b);
+    //我看看啊
+    //掉线了
 }
