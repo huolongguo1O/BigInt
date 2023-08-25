@@ -1,8 +1,18 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include <limits.h>
+int isAddOverflow(unsigned int x, unsigned int y)
+{
+    // 1.
+    unsigned int sum = x + y;
+    return sum < y||sum < x;
+}
 #define is_overflow(a, b) \
    __builtin_add_overflow_p (a, b, (__typeof__ ((a) + (b))) 0)
 
+#define value(a) \
+    i < a -> size ? a -> value : 0
+    
 typedef struct _BIG_INT{
     unsigned int value; //size if first
     struct _BIG_INT * next;
@@ -20,23 +30,23 @@ BIG_INT add(BIG_INT a,BIG_INT b){
     for(int i = 0; i < longer; i++){
         if(over){
             BIG_INT * tmp = malloc(sizeof(BIG_INT)) ;
-            tmp -> value = _a -> value + _b -> value + 1;
-            over = is_overflow(_a -> value , _b -> value) ;
+            tmp -> value = (i < a.value ? _a -> value : 0) + (i < b.value ? _b -> value : 0) + 1;
+            over = is_overflow((i < a.value ? _a -> value : 0) , (i < b.value ? _b -> value : 0)) ;
             if(!over)
                 if(tmp -> value == 0)
                     over = 1 ;
-            _a = _a -> next ;
-            _b = _b -> next ;
+            _a = i < a.value ? _a -> next : _a ;
+            _b = i < b.value ? _b -> next : _b ;
             now -> next = tmp ;
             now = tmp ;
             ret.value++ ;
             continue;
         }
         BIG_INT * tmp = malloc(sizeof(BIG_INT)) ;
-        tmp -> value = _a -> value + _b -> value ;
-        over = is_overflow(_a -> value , _b -> value) ;
-        _a = _a -> next ;
-        _b = _b -> next ;
+        tmp -> value = (i < a.value ? _a -> value : 0) + (i < b.value ? _b -> value : 0) ;
+        over = is_overflow((i < a.value ? _a -> value : 0) , (i < b.value ? _b -> value : 0)) ;
+        _a = i < a.value ? _a -> next : _a ;
+        _b = i < b.value ? _b -> next : _b ;
         now -> next = tmp ;
         now = tmp ;
         ret.value++ ;
@@ -55,6 +65,7 @@ BIG_INT sub0(BIG_INT a){
     //BIG_INT * now = &a ;
     BIG_INT * ret = malloc(sizeof(BIG_INT));
     *ret = a;
+    ret -> value = -a.value;
     BIG_INT * tmp = malloc(sizeof(BIG_INT));
     *tmp = *(ret->next) ;
     tmp -> value = (unsigned int)-(tmp -> value) ;
