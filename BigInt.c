@@ -16,7 +16,7 @@ BIG_INT add(BIG_INT a,BIG_INT b){
     BIG_INT * now =&ret;
     BIG_INT * _a = &a ;
     BIG_INT * _b = &b ;
-    int over;
+    int over = 0 ;
     for(int i = 0; i < longer; i++){
         if(over){
             BIG_INT * tmp = malloc(sizeof(BIG_INT)) ;
@@ -85,6 +85,4 @@ int main(){
     b1.next = (BIG_INT *)-1;
     add(a,b);
     sub(a,b);
-    //我看看啊
-    //掉线了
 }
